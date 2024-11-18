@@ -34,6 +34,7 @@ namespace Mastermind
 
         private void mastermindCode_Loaded(object sender, RoutedEventArgs e)
         {
+            mastermindCode.Title = $"Poging:";
             StringBuilder colorCode = new StringBuilder();
             Random color = new Random();
             for (int i = 1; i <= 4; i++)
@@ -218,12 +219,39 @@ namespace Mastermind
         }
 
         DateTime startTime = DateTime.Now;
+        DispatcherTimer timer = new DispatcherTimer();
+        private void Start_Countdown()
+        {
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+            startTime = DateTime.Now;
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            TimeSpan interval = DateTime.Now - startTime;
+
+            timerTextBox.Text = interval.ToString("ss");
+            string tien = "10";
+            if (interval.ToString("ss") == tien)
+            {
+                Stop_Countdown();
+            }
+        }
+
+        private void Stop_Countdown()
+        {
+            MessageBox.Show("Beurt verloren");
+            timer.Stop();
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Start_Countdown();
             atempts ++;
-            mastermindCode.Title = atempts.ToString();
+            mastermindCode.Title = $"Poging: {atempts.ToString()}";
             string correntCode = $"{correctNumberOne}{correctNumberTwo}{correctNumberThree}{correctNumberFour}";
             string actualCode = $"{actualNumberOne}{actualNumberTwo}{actualNumberThree}{actualNumberFour}";
             if (correctNumberOne == actualNumberOne)
@@ -277,20 +305,5 @@ namespace Mastermind
             
         }
 
-
-        private void Start_Countdown()
-        {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-        }
-
-        private void Timer_Tick(object? sender, EventArgs e)
-        {
-            TimeSpan interval = DateTime.Now - startTime;
-
-            timerTextBox.Text = interval.ToString("ss");
-        }
     }
 }
