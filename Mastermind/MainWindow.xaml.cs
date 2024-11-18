@@ -325,7 +325,7 @@ namespace Mastermind
 
         private void mastermindCode_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.A && (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl))
+            if (e.Key == Key.F12)
             {
                 Toggle_Debug();
             }
