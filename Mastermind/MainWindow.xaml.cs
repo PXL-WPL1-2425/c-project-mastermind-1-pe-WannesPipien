@@ -21,6 +21,7 @@ namespace Mastermind
             InitializeComponent();
         }
 
+        int atempts = 0;
         int correctNumberOne;
         int correctNumberTwo;
         int correctNumberThree;
@@ -215,9 +216,11 @@ namespace Mastermind
             }
         }
 
+         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            atempts ++;
+            mastermindCode.Title = atempts.ToString();
             string correntCode = $"{correctNumberOne}{correctNumberTwo}{correctNumberThree}{correctNumberFour}";
             string actualCode = $"{actualNumberOne}{actualNumberTwo}{actualNumberThree}{actualNumberFour}";
             if (correctNumberOne == actualNumberOne)
