@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Mastermind
 {
@@ -77,7 +78,7 @@ namespace Mastermind
                 }
             }
             colorCode.Length -= 2;
-            mastermindCode.Title = colorCode.ToString();
+            correctCodeTextBox.Text = colorCode.ToString();
         }
 
         SolidColorBrush white = new SolidColorBrush(Colors.White);
@@ -216,9 +217,11 @@ namespace Mastermind
             }
         }
 
-         
+        DateTime startTime = DateTime.Now;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Start_Countdown();
             atempts ++;
             mastermindCode.Title = atempts.ToString();
             string correntCode = $"{correctNumberOne}{correctNumberTwo}{correctNumberThree}{correctNumberFour}";
@@ -271,7 +274,23 @@ namespace Mastermind
             {
                 fourthColor.BorderBrush = transparent;
             }
+            
+        }
 
+
+        private void Start_Countdown()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            TimeSpan interval = DateTime.Now - startTime;
+
+            timerTextBox.Text = interval.ToString("ss");
         }
     }
 }

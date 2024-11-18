@@ -65,5 +65,9 @@
                Grid.Row="0" Grid.Column="3"/>
         <Button VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="250" Content="Controleer code"
                 Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Click="Button_Click"/>
+        <TextBox x:Name="correctCodeTextBox" Height="20" VerticalAlignment="Bottom"
+                 Grid.Row="1" Grid.Column="0" IsEnabled="False" Visibility="Hidden"/>
+        <TextBox x:Name="timerTextBox" Height="20" VerticalAlignment="Bottom" Width="50" HorizontalAlignment="Left"
+                 Grid.Row="1" Grid.Column="3"/>
     </Grid>
 </Window>
