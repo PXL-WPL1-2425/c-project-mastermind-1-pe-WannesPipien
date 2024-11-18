@@ -82,6 +82,7 @@ namespace Mastermind
             correctCodeTextBox.Text = colorCode.ToString();
         }
 
+
         SolidColorBrush white = new SolidColorBrush(Colors.White);
         SolidColorBrush transparent = new SolidColorBrush(Colors.Transparent);
         SolidColorBrush red = new SolidColorBrush(Colors.Red);
@@ -220,15 +221,18 @@ namespace Mastermind
 
         DateTime startTime = DateTime.Now;
         DispatcherTimer timer = new DispatcherTimer();
+        //Deze methode start de countdown met een interval van 1
         private void Start_Countdown()
         {
-            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Interval = TimeSpan.FromSeconds(1);
+            //aanmaken van de Timer_Tick methode
             timer.Tick += Timer_Tick;
             timer.Start();
 
             startTime = DateTime.Now;
         }
 
+        //De timer tickt iedere seconden en na 10 seconder voert die de methode Stop_Countdown uit
         private void Timer_Tick(object? sender, EventArgs e)
         {
             TimeSpan interval = DateTime.Now - startTime;
@@ -240,7 +244,8 @@ namespace Mastermind
                 Stop_Countdown();
             }
         }
-
+        
+        //Deze methode stops de countdown en laat de speler weten dat hij zijn beurt verloren heeft
         private void Stop_Countdown()
         {
             MessageBox.Show("Beurt verloren");
@@ -305,5 +310,25 @@ namespace Mastermind
             
         }
 
+        //Maakt debug vissible of invissible
+        private void Toggle_Debug()
+        {
+            if (correctCodeTextBox.Visibility == Visibility.Visible)
+            {
+                correctCodeTextBox.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                correctCodeTextBox.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void mastermindCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.A && (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl))
+            {
+                Toggle_Debug();
+            }
+        }
     }
 }
